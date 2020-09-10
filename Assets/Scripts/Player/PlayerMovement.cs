@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update () {
 		CheckIfGrounded ();
+
 		PlayerJump ();
 	}
 
@@ -44,11 +45,11 @@ public class PlayerMovement : MonoBehaviour {
 		float h = Input.GetAxisRaw ("Horizontal");
 		string playanim;
 		float speed;
-		if (Input.GetKey (KeyCode.LeftShift)) {
-			playanim = MyTags.PLAYER_RUN_ANIM;
+		if (Input.GetKey(KeyCode.LeftShift)) {
+			playanim = MyTags.PLAYER_RUN_PARAM;
 			speed = runSpeed;
 		} else {
-			playanim = MyTags.PLAYER_WALK_ANIM;
+			playanim = MyTags.PLAYER_WALK_PARAM;
 			speed = walkSpeed;
 		}
 
@@ -78,15 +79,15 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void CheckIfGrounded() {
-		isGrounded = Physics2D.Raycast (groundCheckPosition.position, Vector2.down, 0.1f, groundLayer);
+		isGrounded = Physics2D.Raycast (groundCheckPosition.position, Vector2.down, 0.3f, groundLayer);
 
 		if (isGrounded) {
-			// and we jumped before
+			
 			if (jumped) {
 
 				jumped = false;
 
-				anim.SetBool (MyTags.PLAYER_JUMP_ANIM , false);
+				anim.SetBool (MyTags.PLAYER_JUMP_PARAM , false);
 			}
 		}
 
@@ -94,11 +95,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	void PlayerJump() {
 		if (isGrounded) {
-			if (Input.GetKey (KeyCode.Space)) {
+			if (Input.GetKey(KeyCode.Space)) {
 				jumped = true;
 				myBody.velocity = new Vector2 (myBody.velocity.x, jumpPower);
 
-				anim.SetBool (MyTags.PLAYER_JUMP_ANIM, true);
+				anim.SetBool (MyTags.PLAYER_JUMP_PARAM, true);
 			}
 		}
 	}
